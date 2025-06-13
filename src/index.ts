@@ -1,17 +1,14 @@
 import type { VcsPlugin, VcsUiApp, PluginConfigEditor } from '@vcmap/ui';
 import { name, version, mapVersion } from '../package.json';
+import getDefaultOptions from './defaultOptions.js';
+import DuesseldorfSearch from './duesseldorfSearch';
 
 type PluginConfig = Record<never, never>;
 type PluginState = Record<never, never>;
 
-type MyPlugin = VcsPlugin<PluginConfig, PluginState>;
+type DuesseldorfSearchPlugin = VcsPlugin<PluginConfig, PluginState>;
 
-export default function plugin(
-  config: PluginConfig,
-  baseUrl: string,
-): MyPlugin {
-  // eslint-disable-next-line no-console
-  console.log(config, baseUrl);
+export default function plugin(config: PluginConfig): DuesseldorfSearchPlugin {
   return {
     get name(): string {
       return name;
@@ -22,28 +19,17 @@ export default function plugin(
     get mapVersion(): string {
       return mapVersion;
     },
-    initialize(vcsUiApp: VcsUiApp, state?: PluginState): Promise<void> {
-      // eslint-disable-next-line no-console
-      console.log(
-        'Called before loading the rest of the current context. Passed in the containing Vcs UI App ',
-        vcsUiApp,
-        state,
-      );
-      return Promise.resolve();
-    },
-    onVcsAppMounted(vcsUiApp: VcsUiApp): void {
-      // eslint-disable-next-line no-console
-      console.log(
-        'Called when the root UI component is mounted and managers are ready to accept components',
-        vcsUiApp,
+    initialize(vcsUiApp: VcsUiApp): void {
+      vcsUiApp.search.add(
+        new DuesseldorfSearch(vcsUiApp, { ...getDefaultOptions(), ...config }),
+        name,
       );
     },
+
     /**
      * should return all default values of the configuration
      */
-    getDefaultOptions(): PluginConfig {
-      return {};
-    },
+    getDefaultOptions,
     /**
      * should return the plugin's serialization excluding all default values
      */

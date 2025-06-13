@@ -194,5 +194,6 @@ publish:
     variables:
       - $PUBLISH
   script:
-    - npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"
-    - npm publish --registry https://registry.npmjs.org --access public
+    - VERSION=$(node -pe "require('./package.json').version")
+    - npm run bundle
+    - 'curl --header "JOB-TOKEN: $CI_JOB_TOKEN" --upload-file dist/@vcmap-search-dusseldorf.tar.gz "${CI_API_V4_URL}/projects/317/packages/generic/vcmap-search-dusseldorf/${VERSION}/vcmap-search-dusseldorf-${VERSION}.tar.gz"'
