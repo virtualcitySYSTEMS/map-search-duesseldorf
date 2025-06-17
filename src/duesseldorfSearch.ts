@@ -16,6 +16,9 @@ type Candidate = {
   searchId: string;
   score: string;
   art?: string;
+  stadtteil?: string;
+  adresse?: string;
+  plz?: string;
   // eslint-disable-next-line @typescript-eslint/naming-convention
   wfs_url?: string;
 };

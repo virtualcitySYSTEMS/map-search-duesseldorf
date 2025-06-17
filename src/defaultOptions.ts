@@ -11,6 +11,9 @@ export default function getDefaultOptions(): PluginConfig {
     balloon: {
       balloonTitle: 'text',
       balloonSubtitle: ['cat', 'art'],
+      city: 'stadtteil',
+      zip: 'plz',
+      addressName: 'adresse',
     },
   };
 }
