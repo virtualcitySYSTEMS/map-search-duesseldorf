@@ -7,13 +7,16 @@ export default function getDefaultOptions(): PluginConfig {
       '+proj=utm +zone=32 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs',
     url: 'https://maps.duesseldorf.de/viewer/php/search/search.php?p=',
     params: 'acdipst,25',
-    resultsTitle: ['text', 'cat'],
+    resultsTitle: ['2'],
     balloon: {
       balloonTitle: 'text',
-      balloonSubtitle: ['cat', 'art'],
+      balloonSubtitle: ['2'],
       city: 'stadtteil',
       zip: 'plz',
       addressName: 'adresse',
+      street: undefined,
+      number: undefined,
+      country: undefined,
     },
   };
 }

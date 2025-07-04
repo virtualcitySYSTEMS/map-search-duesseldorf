@@ -20,18 +20,20 @@ type Candidate = {
   adresse?: string;
   plz?: string;
   // eslint-disable-next-line @typescript-eslint/naming-convention
+  '2'?: string;
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   wfs_url?: string;
 };
 
 export type PluginConfig = {
-  url: string;
-  epsg: string;
-  proj4: string;
-  params: string;
-  resultsTitle: Array<keyof Candidate>;
-  balloon: {
-    balloonTitle: keyof Candidate;
-    balloonSubtitle: Array<keyof Candidate>;
+  url?: string;
+  epsg?: string;
+  proj4?: string;
+  params?: string;
+  resultsTitle?: Array<keyof Candidate>;
+  balloon?: {
+    balloonTitle?: keyof Candidate;
+    balloonSubtitle?: Array<keyof Candidate>;
     addressName?: keyof Candidate;
     street?: keyof Candidate;
     number?: keyof Candidate;
@@ -72,14 +74,14 @@ class DuesseldorfSearch implements SearchImpl {
 
   private _abortController: AbortController | undefined;
 
-  constructor(app: VcsUiApp, config: PluginConfig) {
+  constructor(app: VcsUiApp, config: Required<PluginConfig>) {
     this.app = app;
     this.url = config.url.replace(/\/$/, '');
-    this.epsg = config.epsg;
-    this.proj4 = config.proj4;
-    this.params = config.params;
-    this.balloonTitle = config.balloon.balloonTitle;
-    this.balloonSubtitle = config.balloon.balloonSubtitle;
+    this.epsg = config.epsg!;
+    this.proj4 = config.proj4!;
+    this.params = config.params!;
+    this.balloonTitle = config.balloon.balloonTitle!;
+    this.balloonSubtitle = config.balloon.balloonSubtitle!;
     this.addressName = config.balloon.addressName;
     this.street = config.balloon.street;
     this.number = config.balloon.number;
